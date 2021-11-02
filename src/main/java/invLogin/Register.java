@@ -43,53 +43,8 @@ public class Register extends HttpServlet {
 			  return false;
 		  }
 		  
-		  String dburl ="jdbc:mysql://localhost:3306/leaveapprovalsystem";
-		  String dbuname="root";
-		  String dbpassword="";
-		  String dbdriver="com.mysql.cj.jdbc.Driver";
-		  try 
-	      {
-	          Class.forName(dbdriver); 
-	      }
-	      catch(Exception e) 
-	      {
-	          System.out.println(e);
-	      }
+	
 	     
-	      String value = "";
-	      if(registrationtype.equals("employee")) {
-	    	  value = "Emp";
-	      }
-	      else {
-	    	  value = "Man";
-	      }
-	      
-	      
-	      Connection con=DriverManager.getConnection(dburl, dbuname, dbpassword);   
-	      Statement st=con.createStatement();  
-	      ResultSet set= st.executeQuery("select * from "+ registrationtype + " where " + value + "Id='" +userid+"';"); 
-	      
-	      
-	      String pd = "";
-	      int count = 0;
-	      while(set.next()) 
-	      {
-	          System.out.println(set.getString(1)); 
-	          pd=set.getString(1);
-	          count += 1;
-	      }
-	      
-	      if(count > 0) {
-	    	  return false;
-	      }
-	      
-	     
-	      int set1 = st.executeUpdate("insert into " + registrationtype + "(" + value + "Id," + value + "Name," + value + "Password) VALUES('"+userid+"','"+username+"','"+password+"');");
-	      
-	      st.close();
-	      con.close();
-	      
-	      return true;
 	  }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
